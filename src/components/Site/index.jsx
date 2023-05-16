@@ -3,6 +3,8 @@ import { API_ROUTE } from "../../constants";
 import axios from "axios";
 import styled from "styled-components";
 import ExampleModal from "../ExampleModal";
+import { theme } from "../../styles/theme";
+import { motion } from "framer-motion";
 
 /** CSS for styled divs */
 
@@ -16,21 +18,52 @@ const Root = styled.div`
 const SiteTitle = styled.h1`
   font-size: 24px;
   font-weight: 500;
-  color: #3f434e;
+  color: ${theme.colors.black[100]}; // Change to Secondary color: ;
   margin-bottom: 12px;
 `;
 
 const SiteDescription = styled.p`
   font-size: 16px;
   font-weight: 400;
-  color: #9ca1ae;
+  color: ${theme.colors.black[80]}; // Change to Tertiary color
 `;
 
 const DocLink = styled.a`
   text-decoration: none;
   font-weight: 500;
-  color: #3f434e;
+  color: ${theme.colors.black[100]}; // Change to Secondary color
   margin-top: 12px;
+`;
+
+const Button = styled(motion.div)`
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  user-select: none;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+`;
+
+const ConnectionButton = styled(Button)`
+  margin-top: 16px;
+  background-color: #fff;
+  border: 1px solid ${theme.colors.black[40]};
+  color: ${theme.colors.black[100]};
+  &:hover {
+    background-color: ${theme.colors.black[10]};
+  }
+`;
+
+const ModalButton = styled(Button)`
+  background-color: ${theme.colors.blue[100]};
+  color: #fff;
+  &:hover {
+    background-color: ${theme.colors.blue[200]};
+  }
 `;
 
 /** Site functions */
@@ -60,12 +93,12 @@ function Site(props) {
       <SiteTitle>StyleAI Fullstack Interview ⭐️</SiteTitle>
       <SiteDescription>
         Congratulations on making it to the coding interview for the software
-        engineer role at StyleAI! In this task, will be creating an upcoming
-        feature in our website editor: domain searching. After a new customer
-        purchases a Style site, they will have the option to select a domain to
-        host their new website. Your job will be to create both the UI of the
-        domain selection as well as the backend function to query for available
-        domains.
+        engineer role at StyleAI! Your task is to develop a new feature for our
+        website editor: domain searching. Once a customer purchases a Style
+        subscription, they will be able to choose a domain for hosting their new
+        website. Your responsibility is to develop the user interface for the
+        domain selection view and implement the backend function for querying
+        available domains.
       </SiteDescription>
       <SiteDescription>
         This task is designed to test your ability to work with React
@@ -79,8 +112,20 @@ function Site(props) {
       >
         Read Task Documentation
       </DocLink>
-      <button onClick={checkBackendConnection}>Check backend connection</button>
-      <button onClick={() => setIsModalOpen(true)}>Find Domain!</button>
+      <ConnectionButton
+        onClick={checkBackendConnection}
+        whileHover={{ scale: 1.025 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        Check backend connection
+      </ConnectionButton>
+      <ModalButton
+        onClick={() => setIsModalOpen(true)}
+        whileHover={{ scale: 1.025 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        Find Domain!
+      </ModalButton>
       <ExampleModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
     </Root>
   );

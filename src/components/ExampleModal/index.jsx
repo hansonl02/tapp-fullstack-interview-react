@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Modal } from "@mui/material";
+import { theme } from "../../styles/theme";
 
 /** CSS for styled divs */
 
@@ -18,35 +19,28 @@ const ModalView = styled(motion.div)`
   background-color: #ffffff;
 `;
 
-const LeftContainer = styled.div`
-  position: relative;
+const Content = styled.form`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-const LeftContent = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  text-align: center;
   gap: 8px;
 `;
 
 const Title = styled.h3`
   font-size: 24px;
   font-weight: 400;
-  color: var(--tapp-black-200);
+  color: #000;
 `;
 
 const Subtitle = styled.h4`
   font-size: 14px;
   max-width: 300px;
   font-weight: 400;
-  color: var(--tapp-black-80);
+  color: ${theme.colors.black[80]};
   margin-bottom: 16px;
 `;
 
@@ -60,9 +54,8 @@ const SubmitButton = styled(motion.button)`
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  background-color: ${(props) =>
-    props.enabled ? "var(--tapp-black-200)" : "var(--tapp-black-10)"};
-  color: ${(props) => (props.enabled ? "#ffffff" : "var(--tapp-black-80)")};
+  color: #fff;
+  background-color: #000;
   transition: background-color 100ms linear, color 150ms linear;
 `;
 
@@ -77,7 +70,7 @@ const CancelButton = styled(motion.button)`
   font-weight: 500;
   cursor: pointer;
   background-color: transparent;
-  color: var(--tapp-black-80);
+  color: ${theme.colors.black[80]};
   transition: background-color 100ms linear, color 150ms linear;
 `;
 
@@ -91,9 +84,6 @@ function ExampleModal(props) {
   return (
     <>
       <Modal
-        onBackdropClick={(e) => {
-          e.preventDefault();
-        }}
         open={isOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -104,26 +94,24 @@ function ExampleModal(props) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <LeftContainer>
-            <LeftContent onSubmit={handleClose}>
-              <Title>Example Modal</Title>
-              <Subtitle>UI components go here!</Subtitle>
-              <SubmitButton
-                type="submit"
-                whileHover={{ scale: 1.025 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                Submit
-              </SubmitButton>
-              <CancelButton
-                whileHover={{ scale: 1.025 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={handleClose}
-              >
-                Cancel
-              </CancelButton>
-            </LeftContent>
-          </LeftContainer>
+          <Content onSubmit={handleClose}>
+            <Title>Example Modal</Title>
+            <Subtitle>UI components go here!</Subtitle>
+            <SubmitButton
+              type="submit"
+              whileHover={{ scale: 1.025 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              Submit
+            </SubmitButton>
+            <CancelButton
+              whileHover={{ scale: 1.025 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleClose}
+            >
+              Cancel
+            </CancelButton>
+          </Content>
         </ModalView>
       </Modal>
     </>
