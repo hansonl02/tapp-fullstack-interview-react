@@ -1,6 +1,6 @@
 **Introduction**
 
-Congratulations on making it to the coding interview for the software engineer role at StyleAI! In this task, will be creating an upcoming feature in our website editor: domain searching. After a new customer purchases a Style site, they will have the option to select a domain to host their new website. Your job will be to create both the UI of the domain selection as well as the backend function to query for available domains.
+Congratulations on making it to the coding interview for the software engineer role at StyleAI! Your task is to develop a new feature for our website editor: domain searching. Once a customer purchases a Style subscription, they will be able to choose a domain for hosting their new website. Your responsibility is to develop the user interface for the domain selection view and implement the backend function for querying available domains.
 
 **Task Overview**
 
@@ -10,16 +10,16 @@ _Note: Refer to the design drawing below for the user flow_.
 
 Tasks for the frontend:
 
-- Create the initial modal that pops up after clicking "Find Domain!", where the user inputs their business name (`components/ExampleModal/index.jsx`)
-- Create the modal that displays available domains, which opens after the user inputs their business name (`components/ExampleModal/index.jsx`)
-- Handle proper open and close logic for both modals in the Site (`components/Site/index.jsx`)
-- After the user selects a domain, close the modal and display the chosen domain in the middle of the Site (`components/Site/index.jsx`)
+- Develop the initial modal that appears when the user clicks "Find Domain!" to input their business name (`components/ExampleModal/index.jsx`).
+- Design the modal that shows the available domains, which opens after the user inputs their business name (`components/ExampleModal/index.jsx`).
+- Implement the necessary logic to handle the opening and closing of both modals in the Site (`components/Site/index.jsx`).
+- When the user selects a domain, close the modal and display the chosen domain in the center of the Site (`components/Site/index.jsx`).
 
 Tasks for the backend:
 
-- Create an endpoint that takes in a business name as an input, and generates a list of possible domains with GPT. Then check which ones are available and returns a list to the front end. (`getdomains.go`)
-- Note: You may need to parse out the response of GPT into a usable array, as GPT returns a response in string format
-- Use this endpoint (http://domains.usestyle.ai/api/v1/availability?domain={DOMAIN}) to check if a domain is available
+- Develop an endpoint (`getdomains.go`) that receives a business name as input, utilizes GPT to generate a list of potential domains, and then checks the availability of each domain. Finally, return a list of available domains to the frontend.
+- Take note that the response from GPT is in string format, so you may need to parse it into a usable array.
+- Utilize the following endpoint (http://domains.usestyle.ai/api/v1/availability?domain={DOMAIN}) to check the availability of a domain.
 
 The files that you will be working on include:
 
@@ -59,4 +59,5 @@ If you encounter any issues or get stuck along the way, please reach out to your
 This task is designed to test your ability to work with React components, backend logic, and connecting full stack applications together. We wish you the best of luck in completing this task and look forward to reviewing your work.
 
 **User Flow**
+
 ![User Flow](https://github.com/tapp-ai/tapp-fullstack-interview-react/assets/56799300/d5c133b1-3c14-4f15-b103-76f2f539b50a)
