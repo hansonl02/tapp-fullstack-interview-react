@@ -59,3 +59,4 @@ If you encounter any issues or get stuck along the way, please reach out to your
 This task is designed to test your ability to work with React components, backend logic, and connecting full stack applications together. We wish you the best of luck in completing this task and look forward to reviewing your work.
 
 **User Flow**
+![User Flow](https://github.com/tapp-ai/tapp-fullstack-interview-react/assets/56799300/d5c133b1-3c14-4f15-b103-76f2f539b50a)
