@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { Modal } from "@mui/material";
 import { theme } from "../../styles/theme";
 
-/** CSS for styled divs */
-
 const ModalView = styled(motion.div)`
   position: absolute;
   top: 50%;
@@ -74,18 +72,12 @@ const CancelButton = styled(motion.button)`
   transition: background-color 100ms linear, color 150ms linear;
 `;
 
-function ExampleModal(props) {
-  const { isOpen, setIsOpen } = props;
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
+const SearchResultsModal = ({ isOpen, onClose, onDomainClick, results, loading }) => {
   return (
     <>
       <Modal
         open={isOpen}
-        onClose={handleClose}
+        onClose={onClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -94,20 +86,25 @@ function ExampleModal(props) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <Content onSubmit={handleClose}>
-            <Title>Example Modal</Title>
-            <Subtitle>UI components go here!</Subtitle>
-            <SubmitButton
-              type="submit"
-              whileHover={{ scale: 1.025 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              Submit
-            </SubmitButton>
+          <Content>
+            {loading ? 
+              (<Title>Loading Domains...</Title>) :
+              (
+                <><Title>Domains Found:</Title><ul>
+                  {results.map((result, index) => (
+                    <li 
+                      onClick={() => onDomainClick(result)}
+                      key={index}>
+                      {result}
+                    </li>
+                  ))}
+                </ul></>
+              )
+            }
             <CancelButton
               whileHover={{ scale: 1.025 }}
               whileTap={{ scale: 0.9 }}
-              onClick={handleClose}
+              onClick={onClose}
             >
               Cancel
             </CancelButton>
@@ -116,6 +113,6 @@ function ExampleModal(props) {
       </Modal>
     </>
   );
-}
+};
 
-export default ExampleModal;
+export default SearchResultsModal

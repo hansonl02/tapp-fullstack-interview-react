@@ -2,7 +2,8 @@ import { useState } from "react";
 import { API_ROUTE } from "../../constants";
 import axios from "axios";
 import styled from "styled-components";
-import ExampleModal from "../ExampleModal";
+import BusinessNameInputModal from "../BusinessNameInput";
+import SearchResultsModal from "../SearchResults";
 import { theme } from "../../styles/theme";
 import { motion } from "framer-motion";
 
@@ -86,7 +87,47 @@ async function checkBackendConnection() {
 
 /** Site preview for the Editor page */
 function Site(props) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBusinessNameInputModalOpen, setIsBusinessNameInputModalOpen] = useState(false);
+  const [isSearchResultsModalOpen, setIsSearchResultsModalOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [chosenDomain, setChosenDomain] = useState('');
+  const [businessName, setBusinessName] = useState('');
+
+  const handleBusinessNameInputModalClose = () => {
+    setIsBusinessNameInputModalOpen(false);
+  };
+
+  const handleSearchResultsModalClose = () => {
+    setIsSearchResultsModalOpen(false);
+  };
+
+  async function handleSearchDomain(businessName) {
+    setLoading(true);
+    setBusinessName(businessName);
+    setIsBusinessNameInputModalOpen(false);
+    setIsSearchResultsModalOpen(true);
+
+    // Simulate an API call (replace with your actual API call).
+    // Make a POST request to an API endpoint using Axios
+    const resp = await axios.post(API_ROUTE + "/api/v1/get-domains", {"name": businessName})
+      .then((response) => {
+        if (response.data.data) {
+          setSearchResults(response.data.data);
+          setLoading(false);
+        } else {
+          console.log("no available domains!");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  };
+
+  const handleSelectDomain = (domain) => {
+    setChosenDomain(domain);
+    setIsSearchResultsModalOpen(false);
+  };
 
   return (
     <Root>
@@ -120,13 +161,34 @@ function Site(props) {
         Check backend connection
       </ConnectionButton>
       <ModalButton
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => setIsBusinessNameInputModalOpen(true)}
         whileHover={{ scale: 1.025 }}
         whileTap={{ scale: 0.95 }}
       >
         Find Domain!
       </ModalButton>
-      <ExampleModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+
+      <BusinessNameInputModal
+        isOpen={isBusinessNameInputModalOpen}
+        onClose={handleBusinessNameInputModalClose}
+        onSearch={handleSearchDomain}
+      />
+
+      <SearchResultsModal
+        isOpen={isSearchResultsModalOpen}
+        onClose={handleSearchResultsModalClose}
+        onDomainClick={handleSelectDomain}
+        results={searchResults}
+        loading={loading}
+      />
+
+      {chosenDomain && (
+        <div className="centered">
+          <h2>Chosen Domain for {businessName}:</h2>
+          <p>{chosenDomain}</p>
+        </div>
+      )}
+      
     </Root>
   );
 }
