@@ -110,11 +110,11 @@ function Site(props) {
 
     // Simulate an API call (replace with your actual API call).
     // Make a POST request to an API endpoint using Axios
-    const resp = await axios.post(API_ROUTE + "/api/v1/get-domains", {"name": businessName})
+    await axios.post(API_ROUTE + "/api/v1/get-domains", {"name": businessName})
       .then((response) => {
+        setLoading(false);
         if (response.data.data) {
           setSearchResults(response.data.data);
-          setLoading(false);
         } else {
           console.log("no available domains!");
         }

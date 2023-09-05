@@ -3,9 +3,6 @@ import styled from "styled-components";
 import { Modal } from "@mui/material";
 import { theme } from "../../styles/theme";
 import { useState } from "react";
-import { API_ROUTE } from "../../constants";
-import axios from "axios";
-import { handleSearchDomain } from "../Site"
 
 /** CSS for styled divs */
 
